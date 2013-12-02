@@ -62,7 +62,8 @@ module Brakeman::WarningCodes
     :unsafe_symbol_creation => 59,
     :dangerous_attr_accessible => 60,
     :local_request_config => 61,
-    :detailed_exceptions => 62
+    :detailed_exceptions => 62,
+    :mass_assign_permit! => 63,
   }
 
   def self.code name
