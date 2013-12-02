@@ -15,7 +15,7 @@ class Rails4Tests < Test::Unit::TestCase
       :controller => 0,
       :model => 0,
       :template => 0,
-      :generic => 3
+      :generic => 4
     }
   end
 
@@ -118,6 +118,44 @@ class Rails4Tests < Test::Unit::TestCase
       :warning_type => "Redirect",
       :line => 12,
       :message => /^Possible\ unprotected\ redirect/,
+      :confidence => 0,
+      :relative_path => "app/controllers/friendly_controller.rb"
+  end
+
+  def test_mass_assignment_with_permit!
+    assert_warning :type => :warning,
+      :warning_code => 63,
+      :fingerprint => "2f9b87d2a203ac50aa86443a86045c0475e9531c519f62971b8b4a7ae5a183d6",
+      :warning_type => "Mass Assignment",
+      :line => 17,
+      :message => /^Parameters\ should\ be\ whitelisted\ for\ mas/,
+      :confidence => 0,
+      :relative_path => "app/controllers/friendly_controller.rb"
+
+    assert_no_warning :type => :warning,
+      :warning_code => 63,
+      :fingerprint => "a10d0b1f2a955ce0f2bd31bec0a017e776ced7336f360304043c5b78e40f8342",
+      :warning_type => "Mass Assignment",
+      :line => 23,
+      :message => /^Parameters\ should\ be\ whitelisted\ for\ mas/,
+      :confidence => 0,
+      :relative_path => "app/controllers/friendly_controller.rb"
+
+    assert_no_warning :type => :warning,
+      :warning_code => 63,
+      :fingerprint => "84131663bb524b6d63d00f5aabb1a0ef21152f7f76889c24e6a2ec1c91a90d34",
+      :warning_type => "Mass Assignment",
+      :line => 29,
+      :message => /^Parameters\ should\ be\ whitelisted\ for\ mas/,
+      :confidence => 0,
+      :relative_path => "app/controllers/friendly_controller.rb"
+
+    assert_no_warning :type => :warning,
+      :warning_code => 63,
+      :fingerprint => "c33164248f07376a2a5a211f1f4f378d7d0b87772a89d331670abb7331417584",
+      :warning_type => "Mass Assignment",
+      :line => 35,
+      :message => /^Parameters\ should\ be\ whitelisted\ for\ mas/,
       :confidence => 0,
       :relative_path => "app/controllers/friendly_controller.rb"
   end
