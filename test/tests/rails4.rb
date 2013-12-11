@@ -121,4 +121,15 @@ class Rails4Tests < Test::Unit::TestCase
       :confidence => 0,
       :relative_path => "app/controllers/friendly_controller.rb"
   end
+
+  def test_denial_of_service_CVE_2013_6414
+    assert_warning :type => :warning,
+      :warning_code => 64,
+      :fingerprint => "a7b00f08e4a18c09388ad017876e3f57d18040ead2816a2091f3301b6f0e5a00",
+      :warning_type => "Denial of Service",
+      :message => /^Rails\ 4\.0\.0\.beta1\ has\ a\ denial\ of\ servic/,
+      :confidence => 1,
+      :relative_path => "Gemfile"
+  end
+
 end
