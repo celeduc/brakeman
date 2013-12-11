@@ -14,8 +14,8 @@ class Rails4Tests < Test::Unit::TestCase
     @expected ||= {
       :controller => 0,
       :model => 0,
-      :template => 0,
-      :generic => 3
+      :template => 1,
+      :generic => 6
     }
   end
 
@@ -144,4 +144,27 @@ class Rails4Tests < Test::Unit::TestCase
       :user_input => s(:call, s(:call, nil, :params), :[], s(:lit, :currency))
   end
 
+  def test_simple_format_xss_CVE_2013_6416
+    assert_warning :type => :warning,
+      :warning_code => 67,
+      :fingerprint => "e950ee1043d7f66b7f6ce99c2bf0876bd3ce8cb12818b52565b905cdb6004bad",
+      :warning_type => "Cross Site Scripting",
+      :line => nil,
+      :message => /^Rails\ 4\.0\.0\.beta1\ has\ a\ vulnerability\ in/,
+      :confidence => 1,
+      :relative_path => "Gemfile",
+      :user_input => nil
+  end
+
+  def test_sql_injection_CVE_2013_6417
+    assert_warning :type => :warning,
+      :warning_code => 69,
+      :fingerprint => "e1b66f4311771d714a13be519693c540d7e917511a758827d9b2a0a7f958e40f",
+      :warning_type => "SQL Injection",
+      :line => nil,
+      :message => /^Rails\ 4\.0\.0\.beta1 contains\ a\ SQL\ injection\ vul/,
+      :confidence => 0,
+      :relative_path => "Gemfile",
+      :user_input => nil
+  end
 end
