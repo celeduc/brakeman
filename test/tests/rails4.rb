@@ -132,4 +132,16 @@ class Rails4Tests < Test::Unit::TestCase
       :relative_path => "Gemfile"
   end
 
+  def test_number_to_currency_CVE_2013_6415
+    assert_warning :type => :template,
+      :warning_code => 66,
+      :fingerprint => "0fb96b5f4b3a4dcdc677d126f492441e2f7b46880563a977b1246b30d3c117a0",
+      :warning_type => "Cross Site Scripting",
+      :line => 9,
+      :message => /^Currency\ value\ in\ number_to_currency\ is\ /,
+      :confidence => 0,
+      :relative_path => "app/views/users/index.html.erb",
+      :user_input => s(:call, s(:call, nil, :params), :[], s(:lit, :currency))
+  end
+
 end
